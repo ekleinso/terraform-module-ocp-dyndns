@@ -11,7 +11,7 @@ resource "dns_a_record_set" "cluster" {
   for_each = var.hostnames_ip_addresses
 
   zone = "${var.dns_domain}."
-  name = format("%s.%s", element(split(each.key, "."), 0), var.cluster_name)
+  name = format("%s.%s", element(split(".", each.key), 0), var.cluster_name)
   addresses = [
     each.value
   ]
