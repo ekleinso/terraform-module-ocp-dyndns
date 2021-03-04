@@ -11,7 +11,7 @@ resource "dns_a_record_set" "cluster" {
   for_each = var.hostnames_ip_addresses
 
   zone = "${var.dns_domain}."
-  name = format("%s.%s", each.key, var.cluster_name)
+  name = format("%s.%s", element(split(each.key, "."), 0), var.cluster_name)
   addresses = [
     each.value
   ]
@@ -23,7 +23,7 @@ resource "dns_ptr_record" "cluster" {
   
   zone = "16.172.in-addr.arpa."
   name = format("%s.%s", element(split(".", each.value), 3), element(split(".", each.value), 2))
-  ptr  = format("%s.%s.%s.", each.key, var.cluster_name, var.dns_domain)
+  ptr  = format("%s.", each.key)
   ttl  = 300
 }
 
