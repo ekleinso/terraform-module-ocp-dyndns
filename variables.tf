@@ -12,11 +12,13 @@ variable "cluster_name" {
 // The OCP API VIP
 variable "api_vip" {
   type = string
+  default = ""
 }
 
 // The OCP Ingress VIP
 variable "ingress_vip" {
   type = string
+  default = ""
 }
 
 // DNS server to provide dynDNS updates

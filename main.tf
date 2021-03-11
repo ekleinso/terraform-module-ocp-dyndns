@@ -28,6 +28,7 @@ resource "dns_ptr_record" "cluster" {
 }
 
 resource "dns_a_record_set" "api" {
+  count = var.api_vip != "" ? 1 : 0
   zone = "${var.dns_domain}."
   name = format("api.%s", var.cluster_name)
   addresses = [
@@ -37,6 +38,7 @@ resource "dns_a_record_set" "api" {
 }
 
 resource "dns_a_record_set" "api_int" {
+  count = var.api_vip != "" ? 1 : 0
   zone = "${var.dns_domain}."
   name = format("api-int.%s", var.cluster_name)
   addresses = [
@@ -46,6 +48,7 @@ resource "dns_a_record_set" "api_int" {
 }
 
 resource "dns_a_record_set" "apps" {
+  count = var.ingress_vip != "" ? 1 : 0
   zone = "${var.dns_domain}."
   name = format("*.apps.%s", var.cluster_name)
   addresses = [
